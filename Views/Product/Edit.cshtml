@@ -1,0 +1,46 @@
+﻿@model Inverntory_Managment_System.Models.Products.EditVM;
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>Edit User</legend>
+    <form action="/Product/Edit" method="post">
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.UserId)
+        @Html.HiddenFor(m => m.OldName)
+        @Html.HiddenFor(m => m.OldAmount)
+        @Html.HiddenFor(m => m.OldPrice)
+        @Html.HiddenFor(m => m.OldDescription)
+        @Html.HiddenFor(m => m.ProductId)
+        <div class="grid">
+            <div class="row">
+                <div class="col-1"> Name:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.Name)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Name)</div>
+            </div>
+            <div class="row">
+                <div class="col-1">Price:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.Price)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Price)</div>
+            </div>
+            <div class="row">
+                <div class="col-1">Amount:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.Amount)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Amount)</div>
+            </div>
+            <div class="row">
+                <div class="col-1">Description:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.Description)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Description)</div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <input type="submit" value="Save" />
+                    <a href="/Product/Index">back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>

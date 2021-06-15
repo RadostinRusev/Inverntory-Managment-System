@@ -1,0 +1,76 @@
+﻿@model Inverntory_Managment_System.Models.Products.SellVM;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.overallPrice != 0)
+{
+<div class="ml-4">
+    <div class="row">
+        <div>@Model.user.Username </div>
+    </div>
+    <div class="row">
+        <div>overallPrice: @Model.Amount For @Model.overallPrice </div>
+    </div>
+    <div class="row">
+        <div>Pratkata shi doidi sled?   </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-primary">
+            Confirm
+        </button>
+        <button class="btn btn-primary">
+            deny
+        </button>
+    </div>
+</div>
+}
+else
+{
+    <fieldset>
+        <legend>Buy Product @Model.Name</legend>
+        <form action="/Sell/Index" method="post">
+            <div class="grid">
+                <div class="row">
+                    <div class="col-1"> Name:    @Model.product.Name</div>
+                   
+                    @Html.HiddenFor(m => m.Price)
+                    @Html.HiddenFor(m => m.user)
+                </div>
+                <div class="row">
+                    <div class="col-1">Price:  @Model.Price</div>
+                </div>
+                <div class="row">
+                    <div class="col-1">Amount:</div>
+                    <div class="col-2">@Html.TextBoxFor(m => m.Amount)</div>
+                    <div class="col-2">@Html.ValidationMessageFor(m => m.Amount)</div>
+                </div>
+                <div class="row">
+                    <div class="col-1">Description:</div>
+                    <div class="col-2">@Html.TextBoxFor(m => m.Description)</div>
+                    <div class="col-2">@Html.ValidationMessageFor(m => m.Description)</div>
+                </div>
+                <div class="row">
+                    <select id="testSelect" name="testSelect">
+                        <option value="3">burza</option>
+                        <option value="7">normalna</option>
+                    </select>
+                    <asp:Button ID="btnTest" runat="server" Text="Test it!" onclick="suka" />
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <input type="submit" value="Create" />
+                        <a href="/Home/Index">back</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+}
+<script>
+    function suka() {
+        var e = document.getElementById("testSelect");
+        var strUser = e.options[e.selectedIndex].text;
+    }
+</script>

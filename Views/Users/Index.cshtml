@@ -1,0 +1,40 @@
+﻿@model Inverntory_Managment_System.Models.CreateVM;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<fieldset>
+    <legend>Create User</legend>
+    <form action="/Users/Index" method="post">
+        <div class="grid">
+            <div class="row">
+                <div class="col-lg-6">Username:</div>
+                <div class="col-lg-6">@Html.TextBoxFor(m => m.Username)</div>
+                <div class="col-lg-6">@Html.ValidationMessageFor(m => m.Username)</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">Password:</div>
+                <div class="col-lg-6">@Html.PasswordFor(m => m.Password)</div>
+                <div class="col-lg-6">@Html.ValidationMessageFor(m => m.Password)</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">First Name:</div>
+                <div class="col-lg-6">@Html.TextBoxFor(m => m.FirstName)</div>
+                <div class="col-lg-6">@Html.ValidationMessageFor(m => m.FirstName)</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">Last Name:</div>
+                <div class="col-lg-6">@Html.TextBoxFor(m => m.LastName)</div>
+                <div class="col-lg-6">@Html.ValidationMessageFor(m => m.LastName)</div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <input type="submit" value="Create" />
+                    <a href="/Users/Index">back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>

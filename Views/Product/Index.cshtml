@@ -1,0 +1,78 @@
+﻿@model Inverntory_Managment_System.Models.Products.ProductVM;
+@using Inverntory_Managment_System.Entity;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string controller = Context.Request.RouteValues["controller"].ToString();
+    string action = Context.Request.RouteValues["action"].ToString();
+}
+
+<div class="grid">
+    <div class="row filter m-0">
+        <form action="/@controller/@action" method="get">
+            <input type="hidden" name="ItemsPerPage" value="@Model.ItemsPerPage" />
+            <input type="text" placeholder="Name" value="@Model.Name" name="Name" />
+            <input type="text" placeholder="Amount" value="@Model.Amount" name="Amount" />
+            <input type="text" placeholder="PriceUp" value="@Model.PriceUp" name="PriceUp" />
+            <input type="text" placeholder="PriceDown" value="@Model.PriceDown" name="PriceDown" />
+            <input type="submit" value="Filter" />
+            <a href="/@controller/@action?ItemsPerPage=@Model.ItemsPerPage">Clear</a>
+        </form>
+    </div>
+    <div class="row m-0">
+        <a href="/@controller/@action">NEW</a>
+    </div>
+    <div class="row m-0">
+        <div class="col-2">Name</div>
+        <div class="col-2">Amount</div>
+        <div class="col-2">Price</div>
+    </div>
+    @foreach (Product item in Model.Items)
+    {
+        <div class="row m-0">
+            <div class="col-2">@item.Name</div>
+            <div class="col-2">@item.Amount</div>
+            <div class="col-2">@item.Price</div>
+            <div class="col-2">@item.Description</div>
+            <div class="col-2">
+                <a href="/Product/Edit?id=@item.Id">edit</a>
+                <a href="/Sell/Index?id=@item.Id">details</a>
+                <a href="/Product/Delete?id=@item.Id">delete</a>
+            </div>
+        </div>
+    }
+<script>
+    function ddlItemsPerPage_Change() {
+
+        var link = "/@controller/@action?Name=@Model.Name&Amount=@Model.Amount&PriceUp=@Model.PriceUp&PriceDown=@Model.PriceDown&Page=1&ItemsPerPage=" + document.getElementById("ddlItemsPerPage").value;
+        document.location.href = link;
+    }
+</script>
+    <div class="row m-0">
+        <div class="col-3">
+            <a href="/@controller/@action?Name=@Model.Name&Amount=@Model.Amount&PriceUp=@Model.PriceUp&PriceDown=@Model.PriceDown&Page=1&ItemsPerPage=@Model.ItemsPerPage">first</a>
+            @{
+                int startPage = (Model.Page - 5 <= 0 ? 0 : Model.Page - 5);
+                int endPage = (Model.PagesCount < Model.Page + 5 ? Model.PagesCount : Model.Page + 5);
+            }
+            @for (int i = startPage; i < Model.Page; i++)
+            {
+                <a class="pagerItem @(Model.Page == (i+1) ? "b" : "")" href="/@controller/@action?Name=@Model.Name&Amount=@Model.Amount&PriceUp=@Model.PriceUp&PriceDown=@Model.PriceDown&Page=@(i+1)&ItemsPerPage=@Model.ItemsPerPage">@(i + 1)</a>
+            }
+
+            @for (int i = Model.Page; i < endPage; i++)
+            {
+                <a class="pagerItem @(Model.Page == (i+1) ? "b" : "")" href="/@controller/@action?Name=@Model.Name&Amount=@Model.Amount&PriceUp=@Model.PriceUp&PriceDown=@Model.PriceDown&Page=@(i+1)&ItemsPerPage=@Model.ItemsPerPage">@(i + 1)</a>
+            }
+            <a href="/@controller/@action?Name=@Model.Name&Amount=@Model.Amount&PriceUp=@Model.PriceUp&PriceDown=@Model.PriceDown&Page=@Model.PagesCount&ItemsPerPage=@Model.ItemsPerPage">last</a>
+
+            <select id="ddlItemsPerPage" onchange="ddlItemsPerPage_Change()">
+@*
+                <option value="2" @(Model.ItemsPerPage= =2 ? "selected" : "" )>2</option>
+                <option value="5" @(Model.ItemsPerPage= =5 ? "selected" : "" )>5</option>
+                <option value="10" @(Model.ItemsPerPage= =10 ? "selected" : "" )>10</option>*@
+            </select>
+        </div>
+    </div>
+</div>
